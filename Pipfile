@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+"beautifulsoup4" = "*"
+flask = "*"
+fake-useragent = "*"
+requests = "*"
+bottlenose = "*"
+lxml = "*"
+python-dateutil = "*"
+python-amazon-simple-product-api = "*"
+selenium = "*"
+gunicorn = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

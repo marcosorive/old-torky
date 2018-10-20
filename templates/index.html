@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comparador precios videojuegos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="vertical-center">
+<div class="container-fluid">
+<div class="row">
+	<div class="col-sm-12 align-self-center container-fluid search-container">
+		<div class="row my-auto">
+			<div class="col-sm-6 col-md-7 col-lg-6 mx-auto">
+				<div class="pb-5">
+				<h1 class="text-center indigo-text mt-3">Torky</h1>
+				<h5 class="text-center">Encuentra el mejor precio para comprar videojuegos en España</h5>
+				</div>
+				<div class="input-group">
+					<input id="js-search-query" class="form-control border-secondary py-2" type="search" placeholder="Ej.: Super Smash Bros. Ultimate">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary" onclick="searchGames()" id="js-button-search">Buscar</button>
+					</div>
+				</div>
+				<div class="text-center mt-4 text-danger toggle-content" id="js-empty-search">
+				Debes rellenar el campo de búsqueda</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid toggle-content results-container" id="js-search-results">
+		<div class="row my-5">
+			<div class="col-sm-6 col-md-7 col-lg-6 mx-auto" >
+				<div class="card">
+				<h3 class="card-header indigo text-white">Resultados para: <span id="js-search-title"></span></h3>
+				<ul class="list-group list-group-flush">
+						<li class="list-group-item"><span class="store-style">Amazon:</span>
+							<div class="toggle-content" id="js-loading-amazon">
+								<div class="lds-css ng-scope"><div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+							</div>
+							<ul id="js-results-amazon" class="toggle-content">
+							<li><span id="js-name-amazon"></span></li>
+							<li>Precio: <span id="js-price-amazon"></span> - <a id="js-url-amazon" href="" target="_blank">Comprar</a></li>
+							</ul>
+						</li>
+						<li class="list-group-item"><span class="store-style">Fnac:</span>
+							<div class="toggle-content" id="js-loading-fnac">
+								<div class="lds-css ng-scope"><div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+							</div>
+							<ul id="js-results-fnac" class="toggle-content">
+							<li><span id="js-name-fnac"></span></li>
+							<li>Precio: <span id="js-price-fnac"></span> - <a id="js-url-fnac" href="" target="_blank">Comprar</a></li>
+							</ul>
+						</li>
+						<li class="list-group-item"><span class="store-style">Instant Gaming:</span>
+							<div class="toggle-content" id="js-loading-instant-gaming">
+								<div class="lds-css ng-scope"><div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+							</div>
+							<ul id="js-results-instant-gaming" class="toggle-content">
+							<li><span id="js-name-instant-gaming"></span></li>
+							<li>Precio: <span id="js-price-instant-gaming"></span> - <a id="js-url-instant-gaming" href="" target="_blank">Comprar</a></li>
+							</ul>
+						</li>
+						<li class="list-group-item"><span class="store-style">El Corte Inglés:</span>
+							<div class="toggle-content" id="js-loading-corte-ingles">
+								<div class="lds-css ng-scope"><div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+							</div>
+							<ul id="js-results-corte-ingles" class="toggle-content">
+							<li><span id="js-name-corte-ingles"></span></li>
+							<li>Precio: <span id="js-price-corte-ingles"></span> - <a id="js-url-corte-ingles" href="" target="_blank">Comprar</a></li>
+							</ul>
+						</li>
+						
+						<li class="list-group-item"><span class="store-style">Game:</span>
+							<div class="toggle-content" id="js-loading-game">
+								<div class="lds-css ng-scope"><div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+							</div>
+							<ul id="js-results-game" class="toggle-content">
+							<li><span id="js-name-game"></span></li>
+							<li>Precio: <span id="js-price-game"></span> - <a id="js-url-game" href="" target="_blank">Comprar</a></li>
+							</ul>
+						</li>
+						
+					  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="mx-auto my-3 text-center">Made with ❤️ in Spain | <a href="" data-toggle="modal" data-target="#js-modal-info">Información</a>  | <a href="" data-toggle="modal" data-target="#js-modal-contact">Contacto</a></div>
+
+	<div id="js-modal-info" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header indigo text-white">
+	        <h4 class="modal-title">¡Hola!</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Este es un pequeño proyecto que he creado como parte de mi aprendizaje como desarrollador, así que no siempre funciona a la perfección. Dejo un pequeño FAQ.
+	        <ul>
+	        	<li><span class="store-style">¿Por qué Game tarda más y muchas veces no funciona?</span> La web de Game (en mi experiencia) se basa fuertemente en javascript y carga dinámica de contenidos. Mi sistema se basa en hacer una búsqueda y obtener el precio, pero el servidor de Game devuelve una web "vacía" y luego lo "rellena". Prueba de esto es que cuando buscas durante unos segundos ves un mensaje de "Cargando..." y después aparecen los resultados. Sigo trabajando para mejorar mi sistema, espero poder arreglarlo en el futuro. </li>
+	        	<li><span class="store-style">¿Solo 5 tiendas? ¿Habrá más?</span> En mi experiencia como comprador de videojuegos, Amazon, Fnac, Game e Instant Gaming son los sitios con mejores precios y además fiables. El Corte inglés es caro, pero quería añadir alguna más ver otras opciones. Si quieres aparecer contacta conmigo.</li>
+	        	<li><span  class="store-style">¿El servicio es gratis? ¿Hay costes añadidos?</span> Si, completamente gratis y lo seguirá siendo. Esto es parte de mi mejora como desarrollador y no pretendo ganar dinero con ello. Si puedo pagarme unas cervezas con los enlaces referidos me daré con un canto en los dientes :)</li>
+	        </ul>
+	       	</p>
+	       	<h4>¿Eres desarrollador? </h4>
+	       	<p>Si eres dev o simplemente te gusta la tecnología te cuento un poco más como está hecho esto. El back-end está hecho en python sobre Flask. Había trabajando antes con Django y me apetecía probar otro framework. Para el front-end he usado Bootstrap 4 y javascript vanilla. Bootstrap usa JQuery y ya que lo cargo desde el cdn podría haberlo usado, pero quería probar con JS puro.<br>Para obtener los precios he creado un web scrapper usando BeautifulSoup, excepto para amazon que uso su API. Las webs de fnac, corte inglés e Instant gaming fueron muy fáciles de scrappear, la de Game me está costando un poco.<br><br>
+	       	Si quieres contactar conmigo por cualquier razón busca abajo el apartado de contacto.
+	       	</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div id="js-modal-contact" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header indigo text-white">
+	        <h4 class="modal-title">Contacto</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>Puedes contactar conmigo principalmente por dos vías:
+	        	<ul>
+	        		<li>Email: <a href="mailto:marcos@orive.me" target="_blank">marcos(at)orive.me</a> </li>
+	        		<li>Twitter: <a href="https://twitter.com/marcosorive" target="_blank">@marcosorive</a></li>
+	        	</ul>
+	        	Me pondré en contacto contigo lo antes que pueda.
+	        </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div id="js-modal-data" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-dialog-centered modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header indigo text-white">
+	        <h4 class="modal-title">Recolección de datos</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>
+	        	<ul>
+	        	<li>Las cookies de terceros que utilizamos son por usar los CDN de cloudflare y JQuery. La única cookie propia que usamos es para no tener que molestarte con el mensaje cada vez que entras. <a href="http://cookiesandyou.com/" target="_blank">Aprende más obre las cookies.</a></li>
+	        	<li>Los datos que recolectamos son los siguientes: lo que se busca y cuando se busca. Es decir, el nombre del juego y la fecha y hora. No se recolecta ningún dato personal. Puedes ver el código fuente para comprobarlo en <a href="https://github.com/marcosorive" target="_blank">mi github</a> El fin de esto es puramente estadístico, aunque dudo que mucha gente vaya a usar este sitio, podría sacar conclusiones interesantes.</li>
+	        	</ul>
+	        </p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+</div>
+</div>
+</div>
+<div class="alert text-center cookiealert indigo" role="alert">
+    <b>Este sitio usa cookies propias y de terceros para asegurar la mejor experiencia.</b> &#x1F36A; También recolectamos algunos datoscon fines puramente estadísticos. <a href="" data-toggle="modal" data-target="#js-modal-data">Aprende más.</a>
+
+    <button type="button" class="btn btn-light btn-sm acceptcookies" aria-label="Close">
+        Acepto
+    </button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='comparator.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='cookiealert.js') }}"></script>
+<script>
+var input = document.getElementById("js-search-query");
+input.addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("js-button-search").click();
+    }
+});
+</script>
+
+</body>
+</html>
