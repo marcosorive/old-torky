@@ -1,3 +1,7 @@
+# January 2018 update
+
+This repository is decrecated since I changed the architecture. Please heck my other repositories for the new version
+
 # Torky
 
 Torky is a videogame price comparator between Spanish stores. You can try it  [here.](https://teorky.herokuapp.com) It's not perfect and sometimes it doesn't find the prices or get the wrong games, but it will get better with every iteration.
